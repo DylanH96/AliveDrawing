@@ -3,7 +3,7 @@ import stage1_capture.photo_loader as pl
 import stage1_capture.cleaner as cl
 import stage2_edges.edge_extractor as ed
 
-image = pl.load_image(r"C:\Users\dylan\Downloads\image (1).png", "rgb")
+image = pl.load_image(r"C:\Users\dylan\Downloads\smilingoldman.webp", "rgb")
 
 print(pl.get_image_info(image))
 image = cl.clean_sketch(image)
