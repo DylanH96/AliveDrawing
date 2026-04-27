@@ -82,5 +82,5 @@ def save_output(image, output_path):
 def generate(edge_map=None, prompt=None):
     pipeline = load_models()
     img = run_pipeline(pipeline, edge_map, prompt)
-    save_output(img, r"C:\AliveDrawing\image_saves\result1.png")
+    save_output(img, r"C:\AliveDrawing\image_saves\result.png")
     return img

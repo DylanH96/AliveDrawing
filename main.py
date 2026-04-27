@@ -18,7 +18,9 @@ img = pp.run_preprocessor(img)
 # stage 3
 result = generate(
     edge_map=img,
-    prompt="neon concert lighting, glowing laser beams, vibrant colors, dark background, EDM visual"
+    prompt="highly detailed ink sketch, sharp dramatic lines, heavy crosshatching, bold contrast, deep shadows, "
+           "renaissance drawing style, charcoal and ink, intricate linework, etching style, black and"
+           " white with gold accent lines"
 )
 
 # display with PIL instead, dont need imshow() all that BS
