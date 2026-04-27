@@ -25,7 +25,8 @@ def load_image(image_path, color_mode):
 # checks if image path is valid
 def validate_path(image_path):
     # want to validate all requirements for it to return true
-    extensions = [".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".webp"]
+    extensions = [".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".webp"] # .webp is for testing image for now,
+    # ideally not included .webp
     if not pl.Path(image_path).is_file():
         raise ValueError(f"Just not a file bro: {pl.Path(image_path)}")
     if pl.Path(image_path).suffix.lower() not in extensions:

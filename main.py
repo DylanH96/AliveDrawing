@@ -2,15 +2,24 @@ import cv2 as cv
 import stage1_capture.photo_loader as pl
 import stage1_capture.cleaner as cl
 import stage2_edges.edge_extractor as ed
+import stage2_edges.preprocessor as pp
+from stage3_ai.controlnet_pipeline import generate
 
-image = pl.load_image(r"C:\Users\dylan\Downloads\smilingoldman.webp", "rgb")
 
-print(pl.get_image_info(image))
-image = cl.clean_sketch(image)
-print(pl.get_image_info(image))
+# stage 1
+img = pl.load_image(r"C:\Users\dylan\Downloads\hqdefault.jpg", "rgb")  # ← edit this
+img = pl.resize_to_max(img, 1024)
+img = cl.clean_sketch(img)
 
-image = ed.run_edge_pipeline(image)
+# stage 2
+img = ed.run_edge_pipeline(img)
+img = pp.run_preprocessor(img)
 
-cv.imshow("Display Window", image)
-cv.waitKey(0)
-cv.destroyAllWindows()
+# stage 3
+result = generate(
+    edge_map=img,
+    prompt="neon concert lighting, glowing laser beams, vibrant colors, dark background, EDM visual"
+)
+
+# display with PIL instead, dont need imshow() all that BS
+result.show()
