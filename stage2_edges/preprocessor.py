@@ -17,10 +17,10 @@ def resize_for_controlnet(image, target_size=512):
     resized = cv.resize(image, (target_size, target_size), interpolation=cv.INTER_AREA)
     return resized
 
-def run_preprocessor(image):
+def run_preprocessor(image, target_size=512):
     # resize before normalizing — always
     # normalizing first would change pixel values that resize math depends on
-    image = resize_for_controlnet(image)
+    image = resize_for_controlnet(image, target_size)
     image = normalize(image)
     return image
 

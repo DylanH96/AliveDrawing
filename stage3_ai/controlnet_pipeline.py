@@ -20,7 +20,7 @@ import numpy as np
 # your sketch's structure is preserved, the AI fills in the concert visuals
 
 # downloads and caches ControlNet and Stable Diffusion model weights from Hugging Face
-# float16 cuts VRAM usage in half so the models fit on the RTX 3060
+# float16 cuts VRAM usage in half so the models fit on the RTX 3060, instead of float32
 # .to("cuda") moves all weights onto the GPU so inference runs locally at full speed
 
 def load_models():
@@ -84,3 +84,18 @@ def generate(edge_map=None, prompt=None):
     img = run_pipeline(pipeline, edge_map, prompt)
     save_output(img, r"C:\AliveDrawing\image_saves\result.png")
     return img
+
+# some shit about torch:
+#
+# You don't see torch directly because diffusers wraps all of it — but every time the pipeline runs:
+#
+# Your image gets converted to a torch tensor
+# Gets sent to GPU via torch
+# 20 denoising steps run as torch operations on CUDA cores
+# Result gets converted back from tensor to PIL Image
+#
+# Think of it like:
+#
+# diffusers is the steering wheel
+# torch is the entire engine under the hood
+# CUDA is the fuel

@@ -58,6 +58,7 @@ def get_image_info(image):
     }
 
 # resizes image, takes max_dimension as 1024 by default
+# we want 1024 so the giant phone photo shrinks and is more manageable for computer to read, this is NOT for display
 def resize_to_max(image, max_dimension=1024):
     height, width = image.shape[:2] # takes only height and width, we won't want channels at all
     # I don't initialize a scale variable at first because pycharm doesn't like it
