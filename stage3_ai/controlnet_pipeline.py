@@ -4,6 +4,8 @@ import torch
 # for run_pipeline()
 from PIL import Image
 import numpy as np
+# deadass just for display
+import cv2 as cv
 
 # [Claude - sonnet 4.6] notes:
 # ControlNet — a neural network that takes a control image (our edge map) as structural guidance
@@ -44,12 +46,15 @@ def load_models():
 # convert back to RGB values for PIL (Python Imaging Library) and outputs an AI generated image from the prompt
 # PIl (through its modern fork Pillow) - a free, open-source Python library designed for opening,
 # manipulating, and saving many different image file formats
-def run_pipeline(pipeline, edge_map=None, prompt=None):
+def run_pipeline(pipeline, edge_map=None, prompt=None, image_size=512):
     # check for empty params
     if edge_map is None:
         raise ValueError("edge_map is required — pass the output of run_preprocessor()")
     if prompt is None:
         raise ValueError("prompt required my guy")
+
+    # resize edge map to target size
+    edge_map = cv.resize(edge_map, (image_size, image_size), interpolation=cv.INTER_AREA)
 
     # diffusers expects a PIL Image not a numpy array
     # convert float32 0.0-1.0 back to uint8 0-255 first
@@ -79,9 +84,9 @@ def save_output(image, output_path):
 
 # avengers assemble! and return img, this file is the image generator
 # need params here for placeholders for main (image and prompt), pipeline is always the same though
-def generate(edge_map=None, prompt=None):
+def generate(edge_map=None, prompt=None, image_size=512):
     pipeline = load_models()
-    img = run_pipeline(pipeline, edge_map, prompt)
+    img = run_pipeline(pipeline, edge_map, prompt, image_size)
     save_output(img, r"C:\AliveDrawing\image_saves\result.png")
     return img
 

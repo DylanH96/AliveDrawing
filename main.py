@@ -13,17 +13,15 @@ img = cl.clean_sketch(img)
 
 # stage 2
 img_gray = ed.run_edge_pipeline(img)
-img_gray = pp.run_preprocessor(img_gray, 1024)
+img_gray = pp.run_preprocessor(img_gray, 512)
 
 # stage 3
-result = generate_interpolated(
-    original=img,
+result = generate(
     edge_map=img_gray,
     prompt="highly detailed ink sketch, sharp dramatic lines, heavy crosshatching, bold contrast, deep shadows, "
            "renaissance drawing style, charcoal and ink, intricate linework, etching style, black and"
            " white with gold accent lines",
-    strength=2.0,
-    image_size=1024
+    image_size=512
 )
 
 # display with PIL instead, dont need imshow() all that BS
